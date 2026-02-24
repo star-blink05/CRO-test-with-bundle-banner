@@ -1,0 +1,328 @@
+<section class="bundle-banner" aria-label="Bundle promotion section">
+  <div class="bundle-banner__background">
+    <picture class="bundle-banner__background__container">
+      {% if section.settings.background_image_mobile %}
+        <source
+          media="(max-width: 425px)"
+          srcset="{{ section.settings.background_image_mobile | image_url: width: 800 }}"
+        >
+      {% endif %}
+
+      {% if section.settings.background_image %}
+        <img
+          src="{{ section.settings.background_image | image_url: width: 2000 }}"
+          alt="{{ section.settings.background_image.alt | escape }}"
+          class="bundle-banner__bg-image"
+          loading="lazy"
+          width="{{ section.settings.background_image.width }}"
+          height="{{ section.settings.background_image.height }}"
+        >
+      {% endif %}
+
+      {% if section.settings.background_image != blank %}
+        <div class="image-background__bottom__container"></div>
+      {% endif %}
+    </picture>
+  </div>
+
+  <div class="bundle-banner__container page-width">
+    <div class="bundle-banner__content">
+      <header class="bundle-banner__text">
+        {% assign cta_link = section.settings.cta_link %}
+        {% if cta_link == blank and section.settings.collection != blank %}
+          {% assign cta_link = section.settings.collection.url %}
+        {% endif %}
+        {% if section.settings.heading != blank %}
+          <h2 class="bundle-banner__heading">
+            {{ section.settings.heading }}
+            {% if section.settings.cta_label != blank and cta_link != blank %}
+              <a
+                href="{{ cta_link }}"
+                aria-label="{{ section.settings.cta_label }}"
+              >
+                {{ section.settings.cta_label }}
+              </a>
+            {% endif %}
+          </h2>
+        {% endif %}
+
+        {% if section.settings.subheading != blank %}
+          <p class="bundle-banner__subheading">
+            {{ section.settings.subheading }}
+          </p>
+        {% endif %}
+      </header>
+    </div>
+
+    {% if section.settings.product_image %}
+      <div class="bundle-banner__image">
+        <img
+          src="{{ section.settings.product_image | image_url: width: 1000 }}"
+          alt="{{ section.settings.product_image.alt | escape }}"
+          loading="lazy"
+          width="{{ section.settings.product_image.width }}"
+          height="{{ section.settings.product_image.height }}"
+        >
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+      .bundle-banner {
+        position: relative;
+      }
+
+      .bundle-banner__background {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+
+      .bundle-banner__bg-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .bundle-banner__container {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0px;
+      }
+
+      .bundle-banner__content {
+        max-width: 520px;
+      }
+
+      .bundle-banner__heading {
+        font-size: 28px;
+        line-height: 1.2;
+        margin: 0 0 16px;
+      }
+
+      .bundle-banner__subheading {
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0 0 24px;
+      }
+
+      .bundle-banner__button {
+        display: inline-block;
+        padding: 14px 28px;
+        font-size: 14px;
+        text-decoration: none;
+        background: #000;
+        color: #fff;
+        transition: opacity 0.3s ease;
+      }
+
+      .bundle-banner__button:hover {
+        opacity: 0.8;
+      }
+
+      .bundle-banner__image {
+        margin-top: 40px;
+      }
+
+      .bundle-banner__image img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      @media screen and (max-width: 1024px) {
+        .bundle-banner__heading {
+          font-size: 30px !important;
+          line-height: 37px !important;
+        }
+
+        .bundle-banner__subheading {
+          font-size: 17px !important;
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        .bundle-banner__container {
+          flex-direction: column !important;
+        }
+
+        .bundle-banner__content {
+          order: 1;
+          margin-top: 3% !important;
+        }
+
+        .bundle-banner__image {
+          max-width: 100% !important;
+        }
+      }
+
+      @media screen and (max-width: 425px) {
+        .bundle-banner__image {
+          display: none !important;
+        }
+
+        .bundle-banner__bg-image {
+          object-fit: inherit;
+        }
+
+        .bundle-banner {
+          min-height: 474px;
+        }
+
+        .bundle-banner__content {
+          margin-left: 20px !important;
+          position: absolute;
+          top: 300px;
+        }
+
+        .header {
+          padding: 0px 20px !important;
+        }
+      }
+
+      .image-background__bottom__container {
+        display: none;
+      }
+      @media screen and (max-width: 450px) {
+        .image-background__bottom__container {
+          display: block !important;
+          min-height: 112px;
+          background-color: #082d35;
+        }
+
+        .bundle-banner__heading {
+          font-size: 28px !important;
+          line-height: 29px !important;
+          font-weight: 400 !important;
+        }
+
+        .bundle-banner__subheading {
+          font-size: 16px !important;
+          line-height: 20px !important;
+        }
+
+        .bundle-banner__content {
+          margin-top: 0% !important;
+        }
+
+        .bundle-banner__background__container {
+          background-color: #082d35;
+          line-height: unset !important;
+        }
+
+        .bundle-banner__background {
+          inset: unset !important;
+        }
+      }
+
+      @media screen and (min-width: 100px) {
+        .bundle-banner__container {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .bundle-banner__content {
+          max-width: 465px;
+          margin-left: 60px;
+          margin-top: 97px;
+        }
+
+        .bundle-banner__heading {
+          font-size: 37.7px;
+          font-family: 'Libre Baskerville';
+          font-weight: 700;
+          font-style: Bold;
+          line-height: 48px;
+          letter-spacing: 0%;
+          vertical-align: middle;
+          color: white;
+        }
+
+        .bundle-banner__heading a {
+          color: #00bcdd;
+          text-decoration: none;
+        }
+
+        .bundle-banner__subheading {
+          font-size: 18px;
+          font-family: 'Nunito Sans';
+          font-weight: 400;
+          font-style: 'Regular';
+          font-size: 21px;
+          line-height: 27px;
+          letter-spacing: 0%;
+          vertical-align: middle;
+          color: #ffffff;
+        }
+
+        .bundle-banner__image {
+          margin-top: 0;
+          max-width: 700px;
+          flex-shrink: 0;
+        }
+      }
+</style>
+
+{% schema %}
+{
+  "name": "Bundle Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading text",
+      "default": "Build Your Perfect Bundle"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading text",
+      "default": "Mix and match your favorites and save more."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "Shop the Bundle"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Background image (Mobile)"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA custom link"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Or link to collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bundle Banner"
+    }
+  ]
+}
+{% endschema %}
